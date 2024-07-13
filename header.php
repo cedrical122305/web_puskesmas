@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark sticky-top" style="background-color:darkblue;">
         <div class="container-lg">
-            <a class="navbar-brand" href="."><i class="bi bi-hospital"></i> Puskesmas</a>
+            <a class="navbar-brand" href="home"><i class="bi bi-hospital"></i> Puskesmas</a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
@@ -10,7 +10,7 @@
                         <ul class="dropdown-menu dropdown-menu-end mt-2">
                             <li><a class="dropdown-item" href="#"><i class="bi bi-person-check"></i> Profil</a></li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-gear-wide-connected"></i> Setting</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> logout</a></li>
+                            <li><a class="dropdown-item" href="logout"><i class="bi bi-door-open"></i> logout</a></li>
                         </ul>
                     </li>
                 </ul>

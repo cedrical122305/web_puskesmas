@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(empty($_SESSION['username_puskesmas'])){
+        header('location:login');
+    }
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -13,7 +20,7 @@
     <!--header-->
     <?php include("header.php"); ?>
     <!--end header-->
-    <div clas="container-lg">
+    <div class="container-lg">
         <div class="row">
             <!--sidebar-->
             <?php include("sidebar.php"); ?>
@@ -21,7 +28,7 @@
 
             <!--content-->
             <?php 
-            include $page;
+                include $page;
             ?>
             <!--end content-->
         </div>

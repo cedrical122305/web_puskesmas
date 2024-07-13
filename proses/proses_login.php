@@ -9,6 +9,7 @@ include "connect.php";
         $hasil = mysqli_fetch_array($query);
         if ($hasil){
             $_SESSION['username_puskesmas'] = $username;
+            $_SESSION['level_puskesmas'] = $hasil['level'];
             header('location:../home');
         }  else{?>
                 <script>

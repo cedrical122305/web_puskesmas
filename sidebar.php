@@ -16,10 +16,10 @@
                                         <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='home') || !isset($_GET['x']) ? 'active link-light' : 'link-dark' ;  ?>" aria-current="page" href="home"><i class="bi bi-houses-fill"></i> Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='stok') ? 'active link-light' : 'link-dark' ;   ?>" href="stok"><i class="bi bi-card-checklist"></i> Stok</a>
+                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='obat') ? 'active link-light' : 'link-dark' ;   ?>" href="obat"><i class="bi bi-card-checklist"></i> Daftar Obat</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='transaksi') ? 'active link-light' : 'link-dark' ;   ?>" href="transaksi"><i class="bi bi-minecart-loaded"></i> Transaksi</a>
+                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='stok') ? 'active link-light' : 'link-dark' ;   ?>" href="stok"><i class="bi bi-card-checklist"></i> Manajemen Stok</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='kadaluarsa') ? 'active link-light' : 'link-dark' ;   ?>" href="kadaluarsa"><i class="bi bi-stopwatch"></i> Kadaluarsa</a>
@@ -27,6 +27,11 @@
                                     <li class="nav-item">
                                         <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='laporan') ? 'active link-light' : 'link-dark' ;   ?>" href="laporan"><i class="bi bi-files"></i> Laporan</a>
                                     </li>
+                                    <?php if($hasil['level']==1){?>
+                                    <li class="nav-item">
+                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='user') ? 'active link-light' : 'link-dark' ;   ?>" href="user"><i class="bi bi-minecart-loaded"></i> User</a>
+                                    </li>
+                                    <?php }?>
                                 </ul>
                             </div>
                         </div>

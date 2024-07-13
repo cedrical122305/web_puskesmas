@@ -1,8 +1,15 @@
 <?php
-    session_start();
+    //session_start();
     if(empty($_SESSION['username_puskesmas'])){
         header('location:login');
     }
+    include "proses/connect.php";
+    $username = $_SESSION['username_puskesmas'];
+    $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username'");
+
+    $hasil = mysqli_fetch_array($query);
+
+    
 ?>
 
 <!doctype html>

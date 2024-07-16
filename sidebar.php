@@ -19,7 +19,7 @@
                                         <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='obat') ? 'active link-light' : 'link-dark' ;   ?>" href="obat"><i class="bi bi-card-checklist"></i> Daftar Obat</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='stok') ? 'active link-light' : 'link-dark' ;   ?>" href="stok"><i class="bi bi-card-checklist"></i> Manajemen Stok</a>
+                                        <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='stok') ? 'active link-light' : 'link-dark' ;   ?>" href="stok"><i class="bi bi-card-checklist"></i> Stok</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link ps-2 <?php echo (isset($_GET['x']) && $_GET['x']=='kadaluarsa') ? 'active link-light' : 'link-dark' ;   ?>" href="kadaluarsa"><i class="bi bi-stopwatch"></i> Kadaluarsa</a>

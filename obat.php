@@ -358,7 +358,7 @@ $select_sat_obat = mysqli_query($conn, "SELECT id_sat_obat,satuan FROM tb_satuan
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
-                            <tr class="text-nowra">
+                            <tr class="text-nowrap">
                                 <th scope="col">No</th>
                                 <th scope="col">Foto</th>
                                 <th scope="col">Nama Obat</th>

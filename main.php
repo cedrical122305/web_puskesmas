@@ -28,7 +28,7 @@
     <?php include("header.php"); ?>
     <!--end header-->
     <div class="container-lg">
-        <div class="row">
+        <div class="row mb-5">
             <!--sidebar-->
             <?php include("sidebar.php"); ?>
             <!--end sidebar-->

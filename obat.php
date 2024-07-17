@@ -117,6 +117,9 @@ $select_sat_obat = mysqli_query($conn, "SELECT id_sat_obat,satuan FROM tb_satuan
             </div>
             <!-- Akhir Modal tambah obat baru -->
             <?php
+            if (empty($result)) {
+                echo "Obat Tidak tersedia";
+            } else {
             foreach ($result as $row) {
             ?>
                 <!-- Awal Modal View -->
@@ -330,6 +333,7 @@ $select_sat_obat = mysqli_query($conn, "SELECT id_sat_obat,satuan FROM tb_satuan
                             <div class="modal-body">
                                 <form class="needs-validation" novalidate action="proses/proses_delete_obat.php" method="POST">
                                     <input type="hidden" value="<?php echo $row['id'] ?>" name="id">
+                                    <input type="hidden" value="<?php echo $row['foto'] ?>" name="foto">
                                     <div class="col-lg-12">
                                         Apakah anda ingin menghapus Obat <b><?php echo $row['nama_obat']?></b>
                                     </div>
@@ -347,9 +351,7 @@ $select_sat_obat = mysqli_query($conn, "SELECT id_sat_obat,satuan FROM tb_satuan
 
             <?php
             }
-            if (empty($result)) {
-                echo "Data User tidak ada";
-            } else {
+            
 
 
             ?>

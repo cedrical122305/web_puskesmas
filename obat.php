@@ -1,9 +1,15 @@
 <?php
 include "proses/connect.php";
-$query = mysqli_query($conn, "SELECT * FROM tb_daftar_obat");
+$query = mysqli_query($conn, "SELECT * FROM tb_daftar_obat
+    LEFT JOIN tb_kategori_obat ON tb_kategori_obat.id = tb_daftar_obat.kategori_obat
+    LEFT JOIN tb_satuan_obat ON tb_satuan_obat.id = tb_daftar_obat.satuan
+    LEFT JOIN tb_jenis_obat ON tb_jenis_obat.id = tb_daftar_obat.jenis_obat");
 while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
 }
+$select_kat_obat = mysqli_query($conn, "SELECT id,kategori FROM tb_kategori_obat");
+$select_jen_obat = mysqli_query($conn, "SELECT id,jenis FROM tb_jenis_obat");
+$select_sat_obat = mysqli_query($conn, "SELECT id,satuan FROM tb_satuan_obat");
 ?>
 
 <div class="col-lg-9 mt-2 mb-3">
@@ -17,32 +23,32 @@ while ($record = mysqli_fetch_array($query)) {
                     <button class="btn" style="background-color:green; color:yellow" data-bs-toggle="modal" data-bs-target="#ModalTambahUser"><i class="bi bi-plus-square btn-sm"> </i>Tambah User</button>
                 </div>
             </div>
-            <!-- Awal Modal tambah user baru -->
+            <!-- Awal Modal tambah Obat baru -->
             <div class="modal fade" id="ModalTambahUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-fullscreen-md-down">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah User</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Obat</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="needs-validation" novalidate action="proses/proses_input_user.php" method="POST">
+                            <form class="needs-validation" novalidate action="proses/proses_input_obat.php" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="Your Name" name="nama" required>
-                                            <label for="floatingInput">Nama</label>
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="form-control py-3" id="uploadFoto" placeholder="Your Name" name="foto" required>
+                                            <label class="input-group-text" for="uploadFoto">Upload Foto Obat</label>
                                             <div class="invalid-feedback">
-                                                Masukkan Nama
+                                                Masukkan Foto
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" required>
-                                            <label for="floatingInput">Username</label>
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Nama Obat" name="nama_obat" required>
+                                            <label for="floatingInput">Nama Obat</label>
                                             <div class="invalid-feedback">
-                                                Masukkan Username
+                                                Masukkan Nama Obat
                                             </div>
                                         </div>
                                     </div>
@@ -50,45 +56,58 @@ while ($record = mysqli_fetch_array($query)) {
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-floating mb-3">
-                                            <select class="form-select" aria-label="Default select example" name="level" required>
-                                                <option selected hidden value="">Level User</option>
-                                                <option value="1">Admin/Owner</option>
-                                                <option value="2">Petugas</option>
+                                            <select class="form-select" aria-label="Default select example" name="kat_obat" required>
+                                                <option selected hidden value="">Pilih Kategori Obat</option>
+                                                <?php
+                                                foreach ($select_kat_obat as $value) {
+                                                    echo "<option value=" . $value['id'] . ">$value[kategori]</option>";
+                                                }
+                                                ?>
                                             </select>
-                                            <label for="floatingInput">Pilih Level User</label>
+                                            <label for="floatingInput">Pilih Kategori Obat</label>
                                             <div class="invalid-feedback">
-                                                Pilih level user
+                                                Pilih Kategori
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-4">
                                         <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput" placeholder="08xxxxx" name="nohp">
-                                            <label for="floatingInput">No.HP</label>
+                                            <select class="form-select" aria-label="Default select example" name="jen_obat" required>
+                                                <option selected hidden value="">Pilih Jenis Obat</option>
+                                                <?php
+                                                foreach ($select_jen_obat as $value) {
+                                                    echo "<option value=" . $value['id'] . ">$value[jenis]</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <label for="floatingInput">Pilih Jenis Obat</label>
                                             <div class="invalid-feedback">
-                                                Masukkan Nomer Handphone
+                                                Pilih jenis
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" aria-label="Default select example" name="sat_obat" required>
+                                                <option selected hidden value="">Pilih Satuan Obat</option>
+                                                <?php
+                                                foreach ($select_sat_obat as $value) {
+                                                    echo "<option value=" . $value['id'] . ">$value[satuan]</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <label for="floatingInput">Pilih Satuan</label>
+                                            <div class="invalid-feedback">
+                                                Satuan Obat
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-floating mb-3">
-                                            <input type="password" class="form-control" id="floatingInput" placeholder="Password" disabled value="12345" name="password">
-                                            <label for="floatingPassword" name="password">Password</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-floating">
-                                    <textarea class="form-control" name="alamat" id="" style="height: 100px;"></textarea>
-                                    <label for="floatingInput">Alamat</label>
-                                    <div class="invalid-feedback">
-                                        Masukkan Alamat
-                                    </div>
-                                </div>
+
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save changes</button>
+                                    <button type="submit" class="btn btn-primary" name="input_obat_validate" value="12345">Save changes</button>
                                 </div>
                             </form>
                         </div>
@@ -96,7 +115,7 @@ while ($record = mysqli_fetch_array($query)) {
                     </div>
                 </div>
             </div>
-            <!-- Akhir Modal tambah user baru -->
+            <!-- Akhir Modal tambah obat baru -->
             <?php
             foreach ($result as $row) {
             ?>
@@ -356,7 +375,7 @@ while ($record = mysqli_fetch_array($query)) {
                                         </div>
                                     </td>
                                     <td><?php echo $row['nama_obat'] ?></td>
-                                    <td><?php echo $row['jenis_obat'] ?></td>
+                                    <td><?php echo $row['jenis'] ?></td>
                                     <td><?php echo $row['kategori'] ?></td>
                                     <td><?php echo $row['satuan'] ?></td>
                                     <td>

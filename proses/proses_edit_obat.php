@@ -1,6 +1,7 @@
 <?php
 include "connect.php";
 
+$id = (isset($_POST['id'])) ? htmlentities($_POST['id']) : "";
 $nama_obat = (isset($_POST['nama_obat'])) ? htmlentities($_POST['nama_obat']) : "";
 $kat_obat = (isset($_POST['kat_obat'])) ? htmlentities($_POST['kat_obat']) : "";
 $jen_obat = (isset($_POST['jen_obat'])) ? htmlentities($_POST['jen_obat']) : "";
@@ -47,7 +48,14 @@ if (!empty($_POST['input_obat_validate'])) {
                     window.location="../obat"</script>';
         } else {
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $target_file)) {
-                $query = mysqli_query($conn, "INSERT INTO tb_daftar_obat (foto, nama_obat, kategori_obat, jenis_obat, satuan_obat) values('" . $kode_rand . $_FILES['foto']['name'] . "','$nama_obat', '$kat_obat', '$jen_obat', '$sat_obat')");
+                $query = mysqli_query($conn, "UPDATE tb_daftar_obat SET 
+    foto='" . $kode_rand . $_FILES['foto']['name'] . "', 
+    nama_obat='$nama_obat', 
+    kategori_obat='$kat_obat', 
+    jenis_obat='$jen_obat', 
+    satuan_obat='$sat_obat' 
+    WHERE id='$id'");
+
                 if ($query) {
                     $message = '<script>alert("Data berhasil dimasukkan");
                         window.location="../obat"</script>';

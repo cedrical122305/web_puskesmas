@@ -1,6 +1,7 @@
 <?php
     $conn = mysqli_connect("localhost","root","","web_puskesmas");
-    if(!$conn){
-        echo "gagal koneksi";
+    if (!$conn) {
+        die("Koneksi gagal: " . mysqli_connect_error());
     }
+    
 ?>

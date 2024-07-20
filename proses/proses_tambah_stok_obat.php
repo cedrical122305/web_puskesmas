@@ -1,47 +1,48 @@
 <?php
-include "connect.php";
+include "../proses/connect.php"; // Pastikan path ke connect.php sudah benar
 
-function updateStatus($conn) {
-    // Ambil semua obat dari tb_daftar_obat
-    $query = mysqli_query($conn, "SELECT id, nama_obat, tanggal_expired FROM tb_daftar_obat");
-    $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-    
-    foreach ($result as $row) {
-        $id_obat = $row['id'];
-        $tanggal_expired = $row['tanggal_expired'];
-        $status = "";
+// Mengecek apakah form telah disubmit
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Mengambil data dari form
+    $id_obat = $_POST['id_obat'];
+    $jumlah_stok = $_POST['jumlah_stok'];
 
-        if (!is_null($tanggal_expired)) {
-            $date_now = new DateTime();
-            $date_expired = new DateTime($tanggal_expired);
-            $interval = $date_now->diff($date_expired)->days;
-
-            if ($date_now > $date_expired) {
-                $status = "kadaluarsa";
-            } elseif ($interval <= 15) {
-                $status = "mendekati";
-            } else {
-                $status = "aman";
-            }
-        } else {
-            // Tanggal expired tidak ada, bisa atur status default
-            $status = "tidak diketahui";
-        }
-
-        // Periksa apakah status sudah ada di tabel tb_status
-        $check_status_query = mysqli_query($conn, "SELECT * FROM tb_status WHERE id_obat = '$id_obat'");
-        if (mysqli_num_rows($check_status_query) > 0) {
-            // Perbarui status
-            $update_status_query = "UPDATE tb_status SET status = '$status' WHERE id_obat = '$id_obat'";
-            mysqli_query($conn, $update_status_query);
-        } else {
-            // Tambahkan status baru
-            $insert_status_query = "INSERT INTO tb_status (id_obat, status) VALUES ('$id_obat', '$status')";
-            mysqli_query($conn, $insert_status_query);
-        }
+    // Validasi input
+    if (empty($id_obat) || empty($jumlah_stok) || !is_numeric($jumlah_stok) || $jumlah_stok <= 0) {
+        die("Input tidak valid.");
     }
-}
 
-// Panggil fungsi untuk memperbarui status
-updateStatus($conn);
+    // Mengambil stok lama dari tabel
+    $query = mysqli_query($conn, "SELECT stok_obat FROM tb_daftar_obat WHERE id = $id_obat");
+    if (!$query) {
+        die("Query gagal: " . mysqli_error($conn));
+    }
+
+    $row = mysqli_fetch_assoc($query);
+    if (!$row) {
+        die("Obat tidak ditemukan.");
+    }
+
+    $stok_lama = $row['stok_obat'];
+
+    // Menghitung stok baru
+    $stok_baru = $stok_lama + $jumlah_stok;
+
+    // Memperbarui stok obat
+    $query_update = "UPDATE tb_daftar_obat SET stok_obat = $stok_baru WHERE id = $id_obat";
+    if (mysqli_query($conn, $query_update)) {
+        // Menyimpan riwayat transaksi stok dengan tanggal
+        $tanggal_transaksi = date('Y-m-d H:i:s'); // Mendapatkan tanggal dan waktu saat ini
+        $query_riwayat = mysqli_query($conn, "INSERT INTO tb_riwayat_stok (id_obat, jumlah, jenis_transaksi, tanggal) VALUES ($id_obat, $jumlah_stok, 'tambah', '$tanggal_transaksi')");
+        if ($query_riwayat) {
+            echo "<script>alert('Stok berhasil ditambahkan.'); window.location.href='../stok';</script>";
+        } else {
+            echo "<script>alert('Stok berhasil diperbarui, tetapi gagal menyimpan riwayat stok.'); window.location.href='../stok';</script>";
+        }
+    } else {
+        echo "<script>alert('Gagal menambahkan stok.'); window.location.href='../stok';</script>";
+    }
+} else {
+    header("Location: ../stok");
+}
 ?>

@@ -88,7 +88,7 @@ while ($record = mysqli_fetch_array($query)) {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save changes</button>
+                                    <button type="submit" class="btn" style="background-color: Green; color:yellow" name="input_user_validate" value="12345">Save changes</button>
                                 </div>
                             </form>
                         </div>
@@ -251,7 +251,7 @@ while ($record = mysqli_fetch_array($query)) {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="input_user_validate" value="12345">Save changes</button>
+                                        <button type="submit" class="btn" style="background-color: Green; color:yellow" name="input_user_validate" value="12345">Save changes</button>
                                     </div>
                                 </form>
                             </div>

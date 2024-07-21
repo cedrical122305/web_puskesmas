@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query_update = "UPDATE tb_daftar_obat SET stok_obat = $stok_baru WHERE id = $id_obat";
     if (mysqli_query($conn, $query_update)) {
         // Menyimpan riwayat transaksi stok dengan tanggal
-        $tanggal_transaksi = date('Y-m-d H:i:s'); // Mendapatkan tanggal dan waktu saat ini
+        $tanggal_transaksi = date('Y-m-d'); // Mendapatkan tanggal dan waktu saat ini
         $query_riwayat = mysqli_query($conn, "INSERT INTO tb_riwayat_stok (id_obat, jumlah, jenis_transaksi, tanggal) VALUES ($id_obat, $jumlah_stok, 'tambah', '$tanggal_transaksi')");
         if ($query_riwayat) {
             echo "<script>alert('Stok berhasil ditambahkan.'); window.location.href='../stok';</script>";

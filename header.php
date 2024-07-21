@@ -5,9 +5,9 @@ $records = mysqli_fetch_array($query);
 
 ?>
 
-<nav class="navbar navbar-expand navbar-dark sticky-top" style="background-color:darkblue;">
+<nav class="navbar navbar-expand navbar-dark sticky-top" style="background-color:#4CAF50;">
     <div class="container-lg">
-        <a class="navbar-brand" href="."><i class="bi bi-hospital"></i> Your Puskes</a>
+        <a class="navbar-brand" href="." style="color:yellow"><i class="bi bi-hospital"></i> YOURPUSKES</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">

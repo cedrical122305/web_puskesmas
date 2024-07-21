@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Menyimpan riwayat transaksi stok
-    $tanggal_transaksi = date('Y-m-d H:i:s'); // Mendapatkan tanggal dan waktu saat ini
+    $tanggal_transaksi = date('Y-m-d'); // Mendapatkan tanggal dan waktu saat ini
     $query_riwayat = mysqli_query($conn, "INSERT INTO tb_riwayat_stok (id_obat, jumlah, jenis_transaksi, tanggal) VALUES ($id_obat, $jumlah_stok, 'kurangi', '$tanggal_transaksi')");
 
     if ($query_riwayat) {

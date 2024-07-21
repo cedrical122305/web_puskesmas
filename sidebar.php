@@ -37,4 +37,6 @@
                         </div>
                     </div>
                 </nav>
+                <img src="assets/img/Lifesavers - Using Computer.png" style="height: 300px; width: 300px;" alt="">
             </div>
+            

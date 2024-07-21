@@ -7,19 +7,21 @@ $query = mysqli_query($conn, "SELECT tb_daftar_obat.*, tb_satuan_obat.satuan
 
 $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-if (mysqli_num_rows($query) > 0) {
 ?>
 
-    <div class="col-lg-9 mt-2 mb-3">
-        <div class="card">
-            <div class="card-header">
-                <b>Laporan Stok Obat Puskesmas</b>
-            </div>
-            <div class="card-body">
+<div class="col-lg-9 mt-2 mb-3">
+    <div class="card">
+        <div class="card-header">
+            <b>Laporan Stok Obat Puskesmas</b>
+        </div>
+        <div class="card-body">
+            <?php if (empty($result)) { ?>
+                <p>Obat Tidak tersedia</p>
+            <?php } else { ?>
                 <div class="row mb-3">
                     <!-- Tambahkan fitur pencarian di sini -->
                 </div>
-                <!-- Awal Modal Laporan Harian Stok Obat -->
+
                 <!-- Awal Modal Laporan Harian Stok Obat -->
                 <?php foreach ($result as $row) { ?>
                     <div class="modal fade" id="ModalLaporanHarian<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,8 +75,6 @@ if (mysqli_num_rows($query) > 0) {
                     </div>
                 <?php } ?>
                 <!-- Akhir Modal Laporan Harian Stok Obat -->
-
-                <!-- Akhir Modal Laporan Harian Stok  obat -->
 
                 <!-- Awal Modal Laporan Mingguan Stok Obat -->
                 <?php foreach ($result as $row) { ?>
@@ -130,7 +130,6 @@ if (mysqli_num_rows($query) > 0) {
                 <?php } ?>
                 <!-- Akhir Modal Laporan Mingguan Stok Obat -->
 
-
                 <!-- Awal Modal Laporan Bulanan Stok Obat -->
                 <?php foreach ($result as $row) { ?>
                     <div class="modal fade" id="ModalLaporanBulanan<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -185,63 +184,42 @@ if (mysqli_num_rows($query) > 0) {
                 <?php } ?>
                 <!-- Akhir Modal Laporan Bulanan Stok Obat -->
 
-
-                <?php if (empty($result)) { ?>
-                    <p>Obat Tidak tersedia</p>
-                <?php } else { ?>
-                    <div class="table-responsive">
-                        <table class="table table-hover text-center">
-                            <thead>
-                                <tr class="text-nowrap">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Nama Obat</th>
-                                    <th scope="col">Stok Masuk</th>
-                                    <th scope="col">Stok Keluar</th>
+                <div class="table-responsive">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th scope="col">No</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nama Obat</th>
+                                <th scope="col">Laporan </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($result as $row) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?php echo $no++ ?></th>
+                                    <td>
+                                        <div style="width: 100px;">
+                                            <img src="assets/img/<?php echo $row['foto'] ?>" class="img-thumbnail" alt="...">
+                                        </div>
+                                    </td>
+                                    <td><?php echo $row['nama_obat'] ?></td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanHarian<?php echo $row['id']; ?>">Harian</button>
+                                            <button class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanMingguan<?php echo $row['id']; ?>">Mingguan</button>
+                                            <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanBulanan<?php echo $row['id']; ?>">Bulanan</button>
+                                        </div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($result as $row) {
-                                ?>
-                                    <tr>
-                                        <th scope="row"><?php echo $no++ ?></th>
-                                        <td>
-                                            <div style="width: 100px;">
-                                                <img src="assets/img/<?php echo $row['foto'] ?>" class="img-thumbnail" alt="...">
-                                            </div>
-                                        </td>
-                                        <td><?php echo $row['nama_obat'] ?></td>
-                                        <td>
-                                            <?php
-                                            if ($row['stok_obat'] == 0) {
-                                                echo "-";
-                                            } else {
-                                                echo $row['stok_obat'] . ' ' . $row['satuan'];
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex justify-content-center">
-                                                <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanHarian<?php echo $row['id']; ?>">Harian</button>
-                                                <button class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanMingguan<?php echo $row['id']; ?>">Mingguan</button>
-                                                <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalLaporanBulanan<?php echo $row['id']; ?>">Bulanan</button>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php } ?>
-            </div>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
         </div>
     </div>
-
-<?php
-} else {
-    echo "Tidak ada obat yang tersedia.";
-}
-?>
+</div>

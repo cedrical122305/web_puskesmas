@@ -10,16 +10,17 @@ $query = mysqli_query($conn, "SELECT tb_daftar_obat.id, tb_daftar_obat.nama_obat
     LEFT JOIN tb_status ON tb_daftar_obat.id = tb_status.id_obat");
 
 $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
-if (mysqli_num_rows($query) > 0) {
 ?>
 
-    <div class="col-lg-9 mt-2 mb-3">
-        <div class="card">
-            <div class="card-header">
-                <b>Kadaluarsa Obat</b>
-            </div>
-            <div class="card-body">
+<div class="col-lg-9 mt-2 mb-3">
+    <div class="card">
+        <div class="card-header">
+            <b>Kadaluarsa Obat</b>
+        </div>
+        <div class="card-body">
+            <?php if (empty($result)) { ?>
+                <p>Obat Tidak tersedia</p>
+            <?php } else { ?>
                 <div class="row mb-3">
                     <!-- Tambahkan fitur pencarian di sini -->
                 </div>
@@ -88,57 +89,48 @@ if (mysqli_num_rows($query) > 0) {
                 <?php } ?>
                 <!-- Akhir Modal Edit tanggal produksi dan tanggal expired obat -->
 
-                <?php if (empty($result)) { ?>
-                    <p>Obat Tidak tersedia</p>
-                <?php } else { ?>
-                    <div class="table-responsive">
-                        <table class="table table-hover text-center">
-                            <thead>
-                                <tr class="text-nowrap">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Foto</th>
-                                    <th scope="col">Nama Obat</th>
-                                    <th scope="col">Tanggal Produksi</th>
-                                    <th scope="col">Tanggal Expired</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($result as $row) {
-                                ?>
-                                    <tr>
-                                        <th scope="row"><?php echo $no++ ?></th>
-                                        <td>
-                                            <div style="width: 100px;">
-                                                <img src="assets/img/<?php echo htmlspecialchars($row['foto']); ?>" class="img-thumbnail" alt="<?php echo htmlspecialchars($row['nama_obat']); ?>">
-                                            </div>
-                                        </td>
-                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
-                                        <td><?php echo !empty($row['tanggal_produksi']) ? htmlspecialchars($row['tanggal_produksi']) : 'Tidak Diketahui'; ?></td>
-                                        <td><?php echo !empty($row['tanggal_expired']) ? htmlspecialchars($row['tanggal_expired']) : 'Tidak Diketahui'; ?></td>
+                <div class="table-responsive">
+                    <table class="table table-hover text-center">
+                        <thead>
+                            <tr class="text-nowrap">
+                                <th scope="col">No</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Nama Obat</th>
+                                <th scope="col">Tgl Produksi</th>
+                                <th scope="col">Tgl Expired</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            foreach ($result as $row) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?php echo $no++ ?></th>
+                                    <td>
+                                        <div style="width: 100px;">
+                                            <img src="assets/img/<?php echo htmlspecialchars($row['foto']); ?>" class="img-thumbnail" alt="<?php echo htmlspecialchars($row['nama_obat']); ?>">
+                                        </div>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                    <td><?php echo !empty($row['tanggal_produksi']) ? htmlspecialchars($row['tanggal_produksi']) : 'Tidak Diketahui'; ?></td>
+                                    <td><?php echo !empty($row['tanggal_expired']) ? htmlspecialchars($row['tanggal_expired']) : 'Tidak Diketahui'; ?></td>
 
-                                        <td><?php echo htmlspecialchars($row['status']); ?></td>
-                                        <td>
-                                            <div class="d-flex justify-content-center">
-                                                <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalTambahTanggalProduksiExpired<?php echo $row['id']; ?>"><i class="bi bi-trash"></i> Tambah Tanggal Obat</button>
-                                                <button class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalEditTanggalProduksiExpired<?php echo $row['id']; ?>"><i class="bi bi-plus"></i> Edit Tanggal Obat</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php } ?>
-            </div>
+                                    <td><?php echo htmlspecialchars($row['status']); ?></td>
+                                    <td>
+                                        <div class="d-flex justify-content-center">
+                                            <button class="btn btn-success btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalTambahTanggalProduksiExpired<?php echo $row['id']; ?>"><i class="bi bi-calendar-plus"></i> Catat Tanggal</button>
+                                            <button class="btn btn-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalEditTanggalProduksiExpired<?php echo $row['id']; ?>"><i class="bi bi-calendar-range"></i> Edit Tanggal</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } ?>
         </div>
     </div>
-
-<?php
-} else {
-    echo "Tidak ada obat yang tersedia.";
-}
-?>
+</div>

@@ -104,6 +104,7 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+        
     </style>
 
 
@@ -115,7 +116,7 @@
     <main class="form-signin w-100 m-auto">
         <form class="needs-validation" novalidate action="proses/proses_login.php" method="POST">
             <i class="bi bi-hospital fs-1"></i>
-            <h1 class="h3 mb-3 fw-normal">Please LOGIN</h1>
+            <h1 class="h3 mb-3 fw-normal"> welcome to YOURPUSKES</h1>
 
             <div class="form-floating">
                 <input name="username" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
@@ -138,7 +139,7 @@
                     Remember me
                 </label>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit" name="submit_validate" value="abc">Login</button>
+            <button class="btn w-100 py-2" style="background-color: Green; color:yellow" type="submit" name="submit_validate" value="abc">Login</button>
             
             <br><br>
             <p>Email:admin@admin.com</p>

@@ -16,6 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Gagal menambahkan tanggal.'); window.location.href='../kadaluarsa';</script>";
     }
 } else {
-    header("Location: ../index");
+    header("Location: ../obat");
 }
 ?>

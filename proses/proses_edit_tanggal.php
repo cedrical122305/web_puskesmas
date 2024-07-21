@@ -16,6 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Gagal memperbarui tanggal.'); window.location.href='../index.php';</script>";
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: ../obat");
 }
 ?>

@@ -15,6 +15,10 @@ if (!empty($_POST['submit_validate'])) {
     }
 
     $query = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' AND password = '$password'");
+    if (!$query) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+    
     $hasil = mysqli_fetch_array($query);
 
     if ($hasil) {

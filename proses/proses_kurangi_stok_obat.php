@@ -54,6 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Gagal menyimpan riwayat stok: " . mysqli_error($conn) . "'); window.location.href='../stok';</script>";
     }
 } else {
-    header("Location: ../index");
+    header("Location: ../stok");
     exit();
 }
